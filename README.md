@@ -16,7 +16,7 @@ This script executes the entire data pipeline in order:
 After completion, you can run queries using:
 - Simple RAG: `.venv/bin/python main.py rag --query 'your question'`
 - Agentic RAG: `.venv/bin/python main.py agentic_rag --query 'your question'`
-- Gradio interface: `.venv/bin/python app.py`
+- Streamlit interface: `.venv/bin/streamlit run app.py`
 
 ## Data Preparation
 
