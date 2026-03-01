@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+
+# Test / IDE
+.pytest_cache/
+.idea/
+.vscode/
+*.swp
+
+# Data & artifacts (large/generated files)
+data/
+vectorstores/
+pdfs/
+temp_uploads/
+
+# Environment variables
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db

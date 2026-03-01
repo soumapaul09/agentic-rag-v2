@@ -1,0 +1,115 @@
+paths:
+  pdfs: "pdfs"
+  markdown: "data/markdown"
+  chunks: "data/chunks"
+  processed: "data/processed"
+  vectors: "data/vectors"
+  vectorstores: "vectorstores"
+  temp_uploads: "temp_uploads"
+
+  annotated_chunks: "data/processed/annotated_chunks.jsonl"
+  vectors_file: "data/vectors.pkl"
+
+  faiss_index: "vectorstores/faiss.index"
+  faiss_metadata: "vectorstores/faiss_metadata.pkl"
+
+  bm25_index: "vectorstores/bm25.pkl"
+  bm25_metadata: "vectorstores/bm25_metadata.pkl"
+
+
+models:
+  embedding:
+    name: "sentence-transformers/all-MiniLM-L6-v2"
+
+  reranker:
+    name: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
+  llm:
+    default: "llama-3.3-70b-versatile"
+    alternatives:
+      - "llama-3.1-8b-instant"
+      - "mixtral-8x7b-32768"
+
+  eval:
+    name: "google/flan-t5-base"
+
+document_processing:
+  chunk_size: 512
+  min_chunk_chars: 100
+  default_llm: "llama-3.3-70b-versatile"
+
+embedding:
+  batch_size: 512
+  checkpoint_dir: "data/vectors"
+
+search:
+  default_top_k: 10
+  reciprocal_rank_k: 60
+
+rag:
+  simple:
+    default_model: "llama-3.3-70b-versatile"
+    default_temperature: 0
+    default_top_k: 3
+
+  agentic:
+    default_model: "llama-3.3-70b-versatile"
+    default_temperature: 0
+    recursion_limit: 25
+
+prompts:
+  grade: |
+    You are a grader assessing relevance of a retrieved document to a user question.
+     Here is the retrieved document:
+
+     {context}
+
+    Here is the user question: {question}
+    If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant.
+    Give a binary score 'yes' or 'no' score to indicate whether the document is relevant to the question.
+
+  rewrite: |
+    Look at the input and try to reason about the underlying semantic intent / meaning.
+    Here is the initial question:
+     -------
+    {question}
+     -------
+    Formulate an improved question:
+
+  generate: |
+    You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise.
+    Question: {question}
+    Context: {context}
+
+  simple_rag_system: |
+    You are a helpful AI assistant. Use the following context to answer the user's question.
+    If you cannot find the answer in the context, say so.
+
+    Context:
+    {context}
+
+streamlit:
+  server:
+    address: "127.0.0.1"
+    port: 8501
+
+  ui:
+    title: "Agentic RAG System"
+    layout: "wide"
+
+  defaults:
+    chunk_size: 512
+    chunk_size_range: [128, 1024, 128]  # [min, max, step]
+    temperature: 0
+    temperature_range: [0, 1, 0.1]  # [min, max, step]
+    top_k: 3
+    top_k_range: [1, 20, 1]  # [min, max, step]
+    search_top_k: 10
+    search_top_k_range: [5, 50, 5]  # [min, max, step]
+
+cli:
+  defaults:
+    chunks_file: "data/processed/annotated_chunks.jsonl"
+    vectors_file: "data/vectors/214.pkl"
+    eval_setup: "simple"
+    recursion_limit: 25
