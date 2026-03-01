@@ -25,9 +25,14 @@ temp_uploads/
 # Claude settings (may contain API keys)
 .claude/
 
-# Environment variables
+# Environment variables & secrets
 .env
 .env.*
+*.pem
+*.key
+*credentials*.json
+*secret*
+*token*.json
 
 # R history
 .Rhistory
