@@ -22,9 +22,15 @@ vectorstores/
 pdfs/
 temp_uploads/
 
+# Claude settings (may contain API keys)
+.claude/
+
 # Environment variables
 .env
 .env.*
+
+# R history
+.Rhistory
 
 # OS files
 .DS_Store
